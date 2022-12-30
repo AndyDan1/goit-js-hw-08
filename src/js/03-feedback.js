@@ -7,8 +7,9 @@ let STORAGE_KEY = 'feedback-form-state';
 let storage = {};
 
 const fillForm = () => {
-  if (localStorage[STORAGE_KEY]) {
-    storage = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  const dataLocal = localStorage.getItem(STORAGE_KEY);
+  if (dataLocal) {
+    storage = JSON.parse(dataLocal);
   } else {
     storage = {
       email: '',
@@ -18,17 +19,19 @@ const fillForm = () => {
   email.value = storage.email;
   message.innerHTML = storage.message;
 };
+
 fillForm();
+
 const addToLocalStorage = throttle(() => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(storage));
 }, 500);
 
-email.addEventListener('keyup', e => {
+email.addEventListener('input', e => {
   storage.email = e.target.value;
   addToLocalStorage();
 });
 
-message.addEventListener('keyup', e => {
+message.addEventListener('input', e => {
   storage.message = e.target.value;
   addToLocalStorage();
 });

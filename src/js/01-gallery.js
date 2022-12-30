@@ -12,10 +12,12 @@ const createGalleryLayout = item => {
 };
 
 const addLayout = () => {
-  gallery.innerHTML = '';
-  galleryItems.forEach(item => {
-    gallery.innerHTML += createGalleryLayout(item);
-  });
+  const arr = galleryItems
+    .map(item => {
+      return createGalleryLayout(item);
+    })
+    .join('');
+  gallery.insertAdjacentHTML('afterbegin', arr);
 };
 
 addLayout();
